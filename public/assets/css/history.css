@@ -116,3 +116,6 @@ body{
 	background-color:gray;
 	box-shadow: 2px 2px 6px 0px lightslategray;
 }
+#deleteHistory{
+	cursor: pointer;
+}

@@ -8,6 +8,8 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "https": "^1.0.0",
+    "mongoose": "^5.2.7",
+    "node-cache": "^4.2.0",
     "request": "^2.87.0"
   },
   "devDependencies": {},

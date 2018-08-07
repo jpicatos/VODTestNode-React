@@ -1,0 +1,48 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>History</title>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="/assets/css/menu.css">
+	 <link rel="stylesheet" type="text/css" href="/assets/css/history.css">
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	 <script type="text/javascript" src="/assets/js/history.js"></script>
+	 
+ </head>
+ <body>
+ 	<% include menu.ejs %>
+	<div class='historyHeader'>
+	<h1>History</h1>
+		<div>
+			<form class='numberForm' action= "last_videos.php" method = "POST" enctype="multipart/form-data">
+				<select class='focusable' id='numberSelect' name ="number" required >
+						<option value="-1">All</option>
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						
+				</select>
+			</form>
+			<span id="deleteHistory" class="focusable"><i class="fa fa-trash" aria-hidden="true"></i><a> Delete history</a></span>
+		</div>
+	</div>
+	<div class="items">
+		<ul id="last_videos">
+			<% for (var i = items.length -1; i >= items.length - number; i--) { %>
+
+				<li class="item focusable">
+					<a href="/video/<%= items[i].itemIndex %>/<%= items[i].itemId %>">
+						<div>
+							<div class="thumbnail">
+								<img onerror='/assets/img/imagen.jpg' src="<%= items[i].imageUrl%>">
+							</div>
+							<h2><%= fetchData.fetchTitle(items[i].title) %></h2>
+							<h3><%= items[i].category %> | <%= fetchData.fetchType(items[i].type) %> | <%= fetchData.fetchLanguaje(items[i].lang) %></h3>
+						</div>
+					</a>
+				</li>
+			<% } %>
+		</ul>
+	 </div>	
+ </body>
+ </html>
