@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VODTest</title>
+	<link rel="stylesheet" type="text/css" href="/assets/css/index.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/menu.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/assets/js/index.js"></script>
+</head>
+<body>
+    <% include menu.ejs %>
+	<div class="total-carrousel">
+		<button id="right" onclick="slide(0)" class="focusable"> < </button>
+		<div class="carrousel">
+			<ul class="items">
+                <%
+                    for (var i = 0; i < items.totalCount; i++) { %>
+                        <li class="item focusable">
+                            <a href='/video/<%=i %>/<%= items.entries[i].id %>'>
+                                <div>
+                                    <div class="thumbnail">
+                                        <img onerror='this.src="/assets/img/imagen.jpg"' src="<%=items.entries[i].images[0].url %>">
+                                    </div>
+                                    <h2><%= fetchData.fetchTitle(items.entries[i].title) %></h2>
+                                    <h3><%= items.entries[i].categories[0].title %> | <%= fetchData.fetchType(items.entries[i].type) %> | <%= fetchData.fetchLanguaje(items.entries[i].metadata[0].value) %></h3>
+                                </div>
+                            </a>
+                        </li>
+                   <% }
+                %>
+			</ul>
+		</div>
+		<button id="left" onclick="slide(1)" class="focusable"> > </button>
+	</div>
+</body>
+</html>

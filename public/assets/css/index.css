@@ -1,0 +1,102 @@
+body{
+	margin: 0;
+}
+.total-carrousel{
+	display: flex;
+	align-items: center;
+	background-color: #EFEFEFFF;
+}
+.total-carrousel .loadItem{
+	height: 386px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+.total-carrousel .loadItem span{
+	margin: auto;
+	text-align: center;
+}
+.total-carrousel .loadItem img{
+	height: 50px;
+}
+.total-carrousel button{
+	position: absolute;
+	height: 23%;
+	width: 50px;
+	background-color: #AAAAAA98;
+	border: none;
+	font-size:35px;
+}
+.total-carrousel button:hover{
+	background-color: #AAAAAADB;
+}
+.total-carrousel #right{
+	left: 3%;
+	display: none;
+}
+.total-carrousel #left{
+	right: 3%;
+}
+.carrousel{
+	width: 90%;
+	overflow-x: hidden;
+	margin: auto;
+}
+.carrousel .items{
+	display: flex;
+	margin-left: 0;
+	align-items: center;
+}
+.item{
+	margin: 10px;
+	cursor: pointer;
+	display: inline-block;
+}
+.item a{
+	text-decoration: none;
+}
+.item h2, .item h3{
+	margin-top: 2px;
+	margin-bottom: 0;
+	color: black;
+}
+.item h3{
+	font-size: 0.91em;
+    opacity: .7;
+}
+.item h2{
+	font-size: 1.3em;
+}
+.item .thumbnail{
+	box-shadow: 2px 2px 6px 0px grey;
+	height: 317px;
+	width: 214px;
+	overflow: hidden;
+	animation: all;
+	display: flex;
+	align-items: center;
+	border-radius: 2px;
+}
+.item .thumbnail:hover{
+	box-shadow: 3px 3px 8px 0px grey;
+}
+.item a:focus{
+	outline: none;
+}
+.item a:focus .thumbnail{
+	border: solid 3px lightskyblue;
+}
+.item img{
+	width: 100%;
+    /*margin: auto;*/
+}
+.item.focused .thumbnail{
+	outline: none;
+	height: 347px;
+	width: 244px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,43 @@
+.menu{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	background-color: darkgray;
+	align-items: center;
+	padding: 20px 0 20px 0;
+}
+.menu #home{
+	flex-grow: 1;
+	text-align: left;
+	margin-left: 25px;
+}
+.menu>div{
+	display: flex;
+	flex-grow: 1;
+	margin-right: 25px;
+	align-items: center;
+}
+.menu>div #history{
+	margin-left: auto;
+	margin-right: 20px;
+}
+.menu>div #log{
+	margin-left: 10px;
+}
+.menu>div #log a{
+	color: #f44336;
+	font-size: 20px;
+}
+.menu>div p{
+	font-size: 20px;
+	margin: 0;
+}
+.menu #home a{
+	text-decoration: none;
+	color: white;
+	font-size: 25px;
+}
+.menu #history a{
+	color: lightgray;
+	font-size: 20px;
+}

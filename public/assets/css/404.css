@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+    background-color: crimson;
+}
+div{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    
+    flex-direction: column;
+    color:white;
+}

@@ -1,0 +1,42 @@
+body{
+	margin: 0;
+	background: lightgrey;
+}
+.video-container{
+	background: black;
+    padding: 20px 0px;
+    margin-bottom: 10px;
+}
+#video{
+	display: block;
+	width: 640px;
+	margin: auto;
+}
+.video-details{
+	width: 800px;
+	margin: 15px auto 20px auto;
+	text-align: justify;
+	display: flex;
+}
+.video-details #video-image-thumbnail{
+	box-shadow: 2px 2px 6px 0px grey;
+	height: 250px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+.video-details #video-image{
+	width: 100%;
+	display: block;
+}
+.video-details .video-text{
+	width: 650px;
+	margin-left: 35px;
+}
+.video-text #video-title{
+	margin-bottom: 1px;
+}
+.video-text #video-data{
+	margin-top: 10px;
+	font-weight: bold;
+}

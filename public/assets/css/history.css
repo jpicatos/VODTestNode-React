@@ -1,0 +1,118 @@
+body{
+	margin:0;
+	/*background-color: lightgray;*/
+}
+
+.historyHeader{
+	display: flex;
+	align-items: center;
+}
+.historyHeader h1{
+	flex-grow: 1;
+	margin-left: 20px;	
+}
+.historyHeader>div{
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+}
+.historyHeader>div .numberForm{
+	margin-left: auto;
+}
+.numberForm select, #doLogin span{
+	font-size: 20px;
+    padding: 5px 20px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+	background-color: #03a9f4c4;
+	box-shadow: 2px 2px 6px 0px lightgray;
+}
+.historyHeader>div span{
+	margin: 0 20px 0 20px;
+	color: red;
+}
+.historyHeader>div span a:focus, .historyHeader>div span a:hover{
+	text-decoration: underline;
+	color: red;
+}
+.historyHeader>div span a{
+	text-decoration: none;
+	color:red;
+}
+.items {
+	background-color:#EFEFEFFF;
+	padding: 20px;
+	min-height: 300px;
+	display: flex;
+	align-items: center;
+}
+.items em{
+	font-size: 20px;
+	margin: auto;
+}
+#last_videos{
+	list-style-type: none;
+    margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+#last_videos li{
+	margin: 20px;
+}
+#last_videos .thumbnail{
+	height: 317px;
+	width: 214px;
+	overflow: hidden;
+	border-radius: 2px;
+	display: flex;
+	align-items: center;
+	box-shadow: 2px 2px 6px 0px grey;
+}
+#last_videos a:focus{
+	outline: none;
+}
+#last_videos a:focus .thumbnail{
+	border: solid 3px lightskyblue;
+}
+.thumbnail img{
+	width: 100%;
+}
+.item a{
+	text-decoration: none;
+	color: inherit;
+}
+.item h2, .item h3{
+	margin-top: 3px;
+	margin-bottom: 0;
+}
+.item h3{
+	font-size: 0.91em;
+    opacity: .7;
+}
+#last_videos .thumbnail:hover{
+	box-shadow: 3px 3px 8px 0px grey;
+}
+#last_videos .focused .thumbnail{
+	outline: none;
+	height: 347px;
+	width: 244px;
+}
+#doLogin{
+	text-decoration: none;
+	color: white;
+	margin: auto;
+}
+#doLogin span:hover{
+	background-color:gray;
+	box-shadow: 2px 2px 6px 0px lightslategray;
+}
+#doLogin:focus{
+	outline: none;
+}
+#doLogin:focus span{
+	background-color:gray;
+	box-shadow: 2px 2px 6px 0px lightslategray;
+}
