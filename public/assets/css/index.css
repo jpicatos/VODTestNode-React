@@ -5,6 +5,7 @@ body{
 	display: flex;
 	align-items: center;
 	background-color: #EFEFEFFF;
+	height: 500px;
 }
 .total-carrousel .loadItem{
 	height: 386px;
