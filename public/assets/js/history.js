@@ -18,7 +18,7 @@ $(document).ready(function(){
 			data        : formData,
 			encode          : true,
 			success: function(data) {
-				/*location.reload();*/
+				$('.items').html(data);
 			}
 		});
 	});

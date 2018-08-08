@@ -1,4 +1,22 @@
 $(document).ready(function(){
+	$('#loginForm').submit(function(event) {
+		var formData = {
+			'user'              : $('input[name=user]').val(),
+			'pass'              : $('input[name=pass]').val()
+		};
+		$.ajax({
+			type        : 'POST',
+			url         : '/login',
+			data        : formData,
+			encode          : true,
+			success: function(data) {
+				console.log(data);
+			}
+		});
+	
+		event.preventDefault();
+	});
+
 	$('.focused a').focus();
 });
 $(document).keydown(function(e){

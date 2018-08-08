@@ -1,45 +1,33 @@
 var cacheableRequest = require('./cacheableRequest');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var UserModel = require('../models/user');
+var historyModel = require('../models/historyModel');
 
 var urlencodedParse = bodyParser.urlencoded({extended: false});
 
 //Connect to the database
-mongoose.connect('mongodb://vodaccedo:vodaccedo123@ds115420.mlab.com:15420/vodaccedo');
-
-//create DB schema
-var vodaccedoSchema = new mongoose.Schema({
-    itemIndex: Number,
-    itemId: String,
-    accessDateTime: String,
-    imageUrl: String,
-    videoUrl: String,
-    title: String,
-    category:String,
-    type: String,
-    lang: String
+mongoose.connect('mongodb://vodaccedo:vodaccedo123@ds115420.mlab.com:15420/vodaccedo',{
+    useNewUrlParser: true
 });
-
-
-var VODAccedo = mongoose.model('History', vodaccedoSchema);
 
 
 module.exports = function(app){
     
     app.get('/', function(req, res){
         cacheableRequest(function(results){
-            res.render('index', {items: results, fetchData: require('../public/assets/js/fetchMetadata')});
+            res.render('index', {items: results, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
         });
     });
     app.get('/video/:index/:id', function(req, res){
         cacheableRequest(function(results){
             var currentdate = new Date(); 
             var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear() + " @ "  + currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-            VODAccedo.find({itemId: results.entries[req.params.index].id}).remove(function(err, data){
+            historyModel.find({itemId: results.entries[req.params.index].id}).remove(function(err, data){
                 if(err) throw err;
                 console.log(data);
             });
-            VODAccedo({
+            historyModel({
                 itemIndex: req.params.index,
                 itemId: results.entries[req.params.index].id,
                 accessDateTime: datetime,
@@ -54,26 +42,47 @@ module.exports = function(app){
                 console.log('item saved');
             });
 
-            res.render('video', {items: results, index: req.params.index, id: req.params.id, fetchData: require('../public/assets/js/fetchMetadata')});
+            res.render('video', {items: results, index: req.params.index, id: req.params.id, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
         });
     });
     app.get('/history', function(req, res){
-        VODAccedo.find({}, function(err, data){
+        historyModel.find({}, function(err, data){
             if(err) throw err;
-            res.render('history', {items: data, number: data.length, fetchData: require('../public/assets/js/fetchMetadata')});
+            res.render('history', {items: data, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
         });
         
     });
     app.delete('/history', function(req, res){
-        VODAccedo.find({}).remove(function(err, data){
+        historyModel.find({}).remove(function(err, data){
             if(err) throw err;
-            res.render('history', {items: data, number: data.length, fetchData: require('../public/assets/js/fetchMetadata')});
         });
     });
     app.post('/history', urlencodedParse, function(req, res){
-        VODAccedo.find({}, function(err, data){
+        historyModel.find({}, function(err, data){
             if(err) throw err;
-            res.render('history', {items: data, number: req.body.number, fetchData: require('../public/assets/js/fetchMetadata')});
+            var numberItems = req.body.number
+            if(req.body.number < 0 || req.body.number >= data.length){
+                numberItems = data.length;
+            }
+            res.render('historyLimited', {items: data, number: numberItems, fetchData: require('../public/assets/js/fetchMetadata')});
+        });
+    });
+    app.get('/login', function(req, res){
+        res.render('login', {session: req.session});
+    });
+    app.post('/login', urlencodedParse, function(req, res){
+        UserModel.findOne({user: req.body.user}, function(err, data){
+            if(err) throw err;
+            if(!data){
+                res.json({error: 'Incorrect Username'});
+            }
+            if (data.password != null && data.password == req.body.pass){
+                req.session.authenticated = true;
+                req.session.user = req.body.user;
+            }
+            else{
+                res.json({error: 'Incorrect password'});
+            }
         });
     });
     app.get('*', function(req, res){
