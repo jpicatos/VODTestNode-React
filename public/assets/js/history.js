@@ -4,7 +4,7 @@ $(document).ready(function(){
             type: 'DELETE',
             url: '/history',
             success: function(data){
-            	location.reload();
+            	window.location.replace('/history');	
             }
         });
     });

@@ -3,10 +3,11 @@
 	<div>
 		<span id="history" class="focusable"><a href="/history">History</a></span>
 		<% if(session.authenticated){ %>
-
+			<span><p>Hi <%= session.user %></p></span>
+			<span id="log" class="focusable"><a href="/logout">Exit</a></span>
 		<%}
 		else{ %>
-		<span id="log" class="focusable"><a href="/login">Enter</a></span>
+			<span id="log" class="focusable"><a href="/login">Enter</a></span>
 		<% } %>
 	</div>
 </div>

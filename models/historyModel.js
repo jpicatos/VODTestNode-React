@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 //create DB schema
 var vodaccedoSchema = new mongoose.Schema({
+    userId: String,
     itemIndex: Number,
     itemId: String,
     accessDateTime: String,
