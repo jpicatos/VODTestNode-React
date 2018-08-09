@@ -24,6 +24,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "app.js"
   },
+  "engines": {
+    "node": "10.6.0"
+  },
   "author": "me",
   "license": "ISC"
 }
