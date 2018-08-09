@@ -23,6 +23,7 @@ $(document).ready(function(){
 		});
 	});
 	$('.deleteVideo').click(function(event) {
+		var element = $(this).closest('li');
 		var formData = {
 			'id'              : $(this).find('input[name=videoId]').val(),
 		};
@@ -30,8 +31,8 @@ $(document).ready(function(){
 			type        : 'DELETE',
 			url         : '/history/'+formData.id,
 			success: function(data) {
-				console.log(formData);
-				/*location.reload();*/
+				console.log(element);
+				element.fadeOut('slow');
 			}
 		});
 	});
