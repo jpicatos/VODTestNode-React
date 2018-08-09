@@ -49,5 +49,5 @@ controller(app);
 
 
 //listen to port
-/*app.listen(process.env.PORT || 3000);*/
-log.Fatal(http.ListenAndServe(":" + os.Getenv("PORT"), router));
+app.listen(process.env.PORT || 3000);
+/*log.Fatal(http.ListenAndServe(":" + os.Getenv("PORT"), router));*/
