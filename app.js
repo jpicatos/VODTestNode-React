@@ -10,7 +10,7 @@ var controller = require('./controllers/controller');
 var app = express();
 
 //settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', Number(process.env.PORT || 3000));
 
 
 //set view engine
