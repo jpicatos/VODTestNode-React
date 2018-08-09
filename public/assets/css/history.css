@@ -1,6 +1,5 @@
 body{
 	margin:0;
-	/*background-color: lightgray;*/
 }
 
 .historyHeader{
@@ -80,6 +79,9 @@ body{
 .thumbnail img{
 	width: 100%;
 }
+.item{
+	position: relative;
+}
 .item a{
 	text-decoration: none;
 	color: inherit;
@@ -118,4 +120,20 @@ body{
 }
 #deleteHistory{
 	cursor: pointer;
+}
+.deleteVideo{
+	position: absolute;
+    right: 0;
+    margin: 10px;
+    padding: 13px 17px;
+    border-radius: 100%;
+    text-align: center;
+    background-color: #00000047;
+    color: white;
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+}
+.deleteVideo:hover{
+    background-color: #000000d8;
 }

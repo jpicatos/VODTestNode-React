@@ -22,6 +22,19 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$('.deleteVideo').click(function(event) {
+		var formData = {
+			'id'              : $(this).find('input[name=videoId]').val(),
+		};
+		$.ajax({
+			type        : 'DELETE',
+			url         : '/history/'+formData.id,
+			success: function(data) {
+				console.log(formData);
+				/*location.reload();*/
+			}
+		});
+	});
 
 	$('.focused a').focus();
 });

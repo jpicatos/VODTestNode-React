@@ -31,8 +31,9 @@ app.use(function(req, res, next) {
 //Session cookies conf
 app.use(session({
     secret: 'palabraSecreta',
-    resave: true,
-    saveUninitialized: false
+    resave: false,
+    saveUninitialized: true,
+    expires: new Date(Date.now() + (30 * 86400 * 1000))
 }));
 
 

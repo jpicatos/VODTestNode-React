@@ -11,7 +11,7 @@ $(document).ready(function(){
 			encode          : true,
 			success: function(data) {
 				console.log(data);
-				window.location.replace("/");
+				window.history.back();
 			}
 		});
 	

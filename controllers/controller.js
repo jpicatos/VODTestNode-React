@@ -21,15 +21,13 @@ module.exports = function(app){
         });
     });
     app.get('/video/:index/:id', function(req, res){
-        
             cacheableRequest(function(results){
                 var currentdate = new Date(); 
                 var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear() + " @ "  + currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-                HistoryModel.find({itemId: results.entries[req.params.index].id}).remove(function(err, data){
-                    if(err) throw err;
-                    console.log(data);
-                });
                 if(req.session.authenticated){
+                    HistoryModel.find({itemId: results.entries[req.params.index].id, userId: req.session.user}).remove(function(err, data){
+                        if(err) throw err;
+                    });
                     HistoryModel({
                         userId: req.session.user,
                         itemIndex: req.params.index,
@@ -62,6 +60,12 @@ module.exports = function(app){
     });
     app.delete('/history', function(req, res){
         HistoryModel.find({}).remove(function(err, data){
+            if(err) throw err;
+            res.json({success: true});
+        });
+    });
+    app.delete('/history/:id', function(req, res){
+        HistoryModel.find({itemId: req.params.id, userId: req.session.user}).remove(function(err, data){
             if(err) throw err;
             res.json({success: true});
         });

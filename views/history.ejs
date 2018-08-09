@@ -31,6 +31,8 @@
 		<ul id="last_videos">
 			<% for (var i = items.length -1; i >= 0; i--) { %>
 				<li class="item focusable">
+					<span class='deleteVideo' id='<%= i %>'>X</span>
+					<input type="hidden" name="videoId" value="<%= items[i].itemId %>">
 					<a href="/video/<%= items[i].itemIndex %>/<%= items[i].itemId %>">
 						<div>
 							<div class="thumbnail">
