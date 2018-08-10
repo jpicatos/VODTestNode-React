@@ -10,8 +10,7 @@ $(document).ready(function(){
 			data        : formData,
 			encode          : true,
 			success: function(data) {
-				console.log(data);
-				window.history.back();
+				window.location.replace('/');
 			}
 		});
 	
