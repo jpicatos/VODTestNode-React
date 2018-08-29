@@ -1,0 +1,48 @@
+body{
+    margin: 0;
+    background-color: cornflowerblue;
+}
+#register{
+    margin: auto;
+    width: fit-content;
+    /* background-color: lightgrey; */
+    padding: 25px 50px;
+    margin-top: 50px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 0px black;
+    background-color: white;
+}
+#register h1, #register p{
+    text-align: center;
+    margin-top: 10px;
+}
+#register p{
+    color: red;
+    margin: 0;
+}
+#register form{
+    margin: 10px auto;
+    width: fit-content;
+    text-align: right;
+}
+.field{
+    margin-bottom: 10px;
+    font-size: 20px;
+    border: none;
+    padding: 10px 25px 5px;
+    border-bottom: 2px solid lightgray;
+    animation:  1s;
+}
+.field:focus{
+    outline: none;
+    border-bottom: 2px solid lightblue;
+}
+.formButton{
+    padding: 8px 25px;
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: .2em;
+    font-size: 17px;
+    color: white;
+    cursor: pointer;
+}

@@ -6,6 +6,12 @@ var HistoryModel = require('../models/historyModel');
 
 var urlencodedParse = bodyParser.urlencoded({extended: false});
 
+//Cors
+const corsEnabled = function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+};
 //Connect to the database
 mongoose.connect('mongodb://vodaccedo:vodaccedo123@ds115420.mlab.com:15420/vodaccedo',{
     useNewUrlParser: true
@@ -14,13 +20,13 @@ mongoose.connect('mongodb://vodaccedo:vodaccedo123@ds115420.mlab.com:15420/vodac
 
 module.exports = function(app){
     
-    app.get('/', function(req, res){
+    app.get('/', corsEnabled, function(req, res){
         console.log(req.session);
         cacheableRequest(function(results){
             res.render('index', {items: results, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
         });
     });
-    app.get('/video/:index/:id', function(req, res){
+    app.get('/video/:index/:id', corsEnabled, function(req, res){
             cacheableRequest(function(results){
                 var currentdate = new Date(); 
                 var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear() + " @ "  + currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
@@ -89,7 +95,7 @@ module.exports = function(app){
             if(!data){
                 res.json({error: 'Incorrect Username'});
             }
-            if (data.password != null && data.password == req.body.pass){
+            if (data.password !== null && data.password === req.body.pass){
                 req.session.authenticated = true;
                 req.session.user = req.body.user;
                 res.json({error:'none'});
@@ -98,6 +104,36 @@ module.exports = function(app){
                 res.json({error: 'Incorrect password'});
             }
         });
+    });
+    app.get('/register', function(req, res){
+        res.render('register', {session: req.session});
+    });
+    app.post('/register', urlencodedParse, function(req, res){
+        if (req.body.pass1 === req.body.pass2) {
+            UserModel.findOne({user: req.body.user}, function(err, data){
+                if(err) throw err;
+                if(!data){
+                    UserModel({
+                        user: req.body.user,
+                        password: req.body.pass1,
+                    }).save(function(err){
+                        if(err) throw err;
+                        res.status(200);
+                        console.log('item saved');
+                    });
+                    res.status(200);
+                    res.json({error:'none'});
+                }
+                else{
+                    res.status(400);
+                    res.json({error: 'Incorrect Username'});
+                }
+            });
+        }
+        else{
+            res.status(401);
+            res.json({error: 'Incorrect password'});
+        }
     });
     app.get('/logout', function(req, res){
         req.session.destroy();
