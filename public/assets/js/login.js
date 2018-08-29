@@ -55,11 +55,11 @@ $(document).keydown(function(e){
         }
         else if ($('#pass').hasClass('focused')) {
 					$('.focused').removeClass('focused');
-        	$('#register').addClass('focused');
+        	$('#.formButton').addClass('focused');
 				}
-				else if ($('#register').hasClass('focused')) {
+				else if ($('.formButton').hasClass('focused')) {
 					$('.focused').removeClass('focused');
-					$('.formButton').addClass('focused');
+					$('#register').addClass('focused');
 				}
         $('.focused').focus();
         break;
