@@ -72,10 +72,19 @@ $(document).keydown(function(e){
 			$('.focused').removeClass('focused');
         	$('.formButton').addClass('focused');
         }
+        else if ($('.formButton').hasClass('focused')) {
+			$('.focused').removeClass('focused');
+        	$('#login').addClass('focused');
+        }
         $('.focused').focus();
         break;
       case 38:/**Up */
-        if ($('.formButton').hasClass('focused')) {
+        if ($('#login').hasClass('focused')) {
+            $('.focused').removeClass('focused');
+            $('.formButton').addClass('focused');
+            $('.focused').focus();
+        }
+        else if ($('.formButton').hasClass('focused')) {
     		$('.focused').removeClass('focused');
             $('#pass2').addClass('focused');
             $('.focused').focus();

@@ -46,32 +46,41 @@ $(document).keydown(function(e){
         break;
       case 40:/**Down */
         if ($('.menu span').hasClass('focused')) {
-			$('.focused').removeClass('focused');
+					$('.focused').removeClass('focused');
         	$('#user').addClass('focused');
         }
         else if ($('#user').hasClass('focused')) {
-			$('.focused').removeClass('focused');
+					$('.focused').removeClass('focused');
         	$('#pass').addClass('focused');
         }
         else if ($('#pass').hasClass('focused')) {
-			$('.focused').removeClass('focused');
-        	$('.formButton').addClass('focused');
-        }
+					$('.focused').removeClass('focused');
+        	$('#register').addClass('focused');
+				}
+				else if ($('#pass').hasClass('focused')) {
+					$('.focused').removeClass('focused');
+					$('.formButton').addClass('focused');
+				}
         $('.focused').focus();
         break;
-      case 38:/**Up */
-        if ($('.formButton').hasClass('focused')) {
-    		$('.focused').removeClass('focused');
+			case 38:/**Up */
+				if ($('#register').hasClass('focused')) {
+						$('.focused').removeClass('focused');
+						$('.formButton').addClass('focused');
+						$('.focused').focus();
+				}
+        else if ($('.formButton').hasClass('focused')) {
+    				$('.focused').removeClass('focused');
             $('#pass').addClass('focused');
             $('.focused').focus();
         }
         else if ($('#pass').hasClass('focused')) {
-    		$('.focused').removeClass('focused');
+    				$('.focused').removeClass('focused');
             $('#user').addClass('focused');
             $('.focused').focus();
         }
         else if ($('#user').hasClass('focused')) {
-    		$('.focused').removeClass('focused');
+    				$('.focused').removeClass('focused');
             $('#home').addClass('focused');
             $('.focused a').focus();
 		}
