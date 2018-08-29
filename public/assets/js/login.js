@@ -57,7 +57,7 @@ $(document).keydown(function(e){
 					$('.focused').removeClass('focused');
         	$('#register').addClass('focused');
 				}
-				else if ($('#pass').hasClass('focused')) {
+				else if ($('#register').hasClass('focused')) {
 					$('.focused').removeClass('focused');
 					$('.formButton').addClass('focused');
 				}
