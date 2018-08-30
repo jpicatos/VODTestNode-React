@@ -1,8 +1,5 @@
 
 $(document).ready(function(){
-	$.getJSON('https://sela-test.herokuapp.com/assets/hkzxv.json', function(data){
-		console.log(data);
-	});
 	$('.focused a').focus();
 });
 

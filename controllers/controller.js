@@ -20,38 +20,36 @@ mongoose.connect('mongodb://vodaccedo:vodaccedo123@ds115420.mlab.com:15420/vodac
 
 module.exports = function(app){
     
-    app.get('/', corsEnabled, function(req, res){
-        console.log(req.session);
-        cacheableRequest(function(results){
-            res.render('index', {items: results, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
-        });
+    app.get('/', corsEnabled, cacheableRequest, function(req, res){
+        console.log(req.isCached)
+        res.render('index', {items: req.result, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
     });
-    app.get('/video/:index/:id', corsEnabled, function(req, res){
-            cacheableRequest(function(results){
-                var currentdate = new Date(); 
-                var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear() + " @ "  + currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-                if(req.session.authenticated){
-                    HistoryModel.find({itemId: results.entries[req.params.index].id, userId: req.session.user}).remove(function(err, data){
-                        if(err) throw err;
-                    });
-                    HistoryModel({
-                        userId: req.session.user,
-                        itemIndex: req.params.index,
-                        itemId: results.entries[req.params.index].id,
-                        accessDateTime: datetime,
-                        imageUrl: results.entries[req.params.index].images[0].url,
-                        videoUrl: results.entries[req.params.index].contents[0].url,
-                        title: results.entries[req.params.index].title,
-                        category:results.entries[req.params.index].categories[0].title,
-                        type: results.entries[req.params.index].type,
-                        lang: results.entries[req.params.index].metadata[0].value
-                    }).save(function(err){
-                        if(err) throw err;
-                        console.log('item saved');
-                    });
-                }
-                res.render('video', {items: results, index: req.params.index, id: req.params.id, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
-            });
+    app.get('/video/:index/:id', corsEnabled, cacheableRequest, function(req, res){
+            var results = req.result
+            var currentdate = new Date(); 
+            var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear() + " @ "  + currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+            if(req.session.authenticated){
+                HistoryModel.find({itemId: results.entries[req.params.index].id, userId: req.session.user}).remove(function(err, data){
+                    if(err) throw err;
+                });
+                HistoryModel({
+                    userId: req.session.user,
+                    itemIndex: req.params.index,
+                    itemId: results.entries[req.params.index].id,
+                    accessDateTime: datetime,
+                    imageUrl: results.entries[req.params.index].images[0].url,
+                    videoUrl: results.entries[req.params.index].contents[0].url,
+                    title: results.entries[req.params.index].title,
+                    category:results.entries[req.params.index].categories[0].title,
+                    type: results.entries[req.params.index].type,
+                    lang: results.entries[req.params.index].metadata[0].value
+                }).save(function(err){
+                    if(err) throw err;
+                    console.log('item saved');
+                });
+            }
+            res.render('video', {items: results, index: req.params.index, id: req.params.id, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
+            
     });
     app.get('/history', function(req, res){
         if(req.session.authenticated){

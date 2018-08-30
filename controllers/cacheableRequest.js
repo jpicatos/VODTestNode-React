@@ -5,7 +5,7 @@ const CACHE_DURATION = 720; // 12 minutes
 const CACHE_KEY = 'DATAx';
 
 
-module.exports = function(cb){
+module.exports = function(req, res, next){
     var options = {
         url: 'https://sela-test.herokuapp.com/assets/hkzxv.json',
         headers: {
@@ -14,21 +14,25 @@ module.exports = function(cb){
     };
     cacheProvider.instance().get(CACHE_KEY, function(err, value){
         if(err) console.error(error);
-        if(true){
+        if(!value){
             request(options, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     jsonResData = JSON.parse(body);
-                    /*cacheProvider.instance().set(CACHE_KEY, jsonResData, CACHE_DURATION, function(err, success){
+                    cacheProvider.instance().set(CACHE_KEY, jsonResData, CACHE_DURATION, function(err, success){
                         if(!err && success){
-                            cb(jsonResData);
+                            req.result = jsonResData;
+                            req.isCached = false;
+                            next();
                         }
-                    });*/
-                    cb(jsonResData)
+                    });
                 }
             });
         }
         else{
-            cb(value);
+            req.result = value;
+            req.isCached = true;
+            next();
         }
     });
+    
 }
