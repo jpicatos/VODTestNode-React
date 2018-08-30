@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('#loginForm').submit(function(event) {
 		var formData = {
-			'user'              : $('input[name=user]').val(),
+			'name'              : $('input[name=user]').val(),
 			'pass'              : $('input[name=pass]').val()
 		};
 		$.ajax({
@@ -11,7 +11,14 @@ $(document).ready(function(){
 			encode          : true,
 			success: function(data) {
 				window.location.replace('/');
-			}
+			},
+			error: function(xhr, status, text) {
+				console.log(xhr);
+
+				if (xhr.status == 401) {
+						$('#error').html('Wrong user or password')
+				}
+		}
 		});
 	
 		event.preventDefault();

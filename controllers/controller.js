@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var UserModel = require('../models/user');
 var HistoryModel = require('../models/historyModel');
+var auth = require('./basicAuth');
 
 var urlencodedParse = bodyParser.urlencoded({extended: false});
 
@@ -87,21 +88,11 @@ module.exports = function(app){
     app.get('/login', function(req, res){
         res.render('login', {session: req.session});
     });
-    app.post('/login', urlencodedParse, function(req, res){
-        UserModel.findOne({user: req.body.user}, function(err, data){
-            if(err) throw err;
-            if(!data){
-                res.json({error: 'Incorrect Username'});
-            }
-            if (data.password !== null && data.password === req.body.pass){
-                req.session.authenticated = true;
-                req.session.user = req.body.user;
-                res.json({error:'none'});
-            }
-            else{
-                res.json({error: 'Incorrect password'});
-            }
-        });
+    app.post('/login',urlencodedParse, auth, function(req, res){
+        console.log(req.session)
+        req.session.authenticated = true;
+        req.session.user = req.username;
+        res.redirect('/');
     });
     app.get('/register', function(req, res){
         res.render('register', {session: req.session});
@@ -135,6 +126,7 @@ module.exports = function(app){
     });
     app.get('/logout', function(req, res){
         req.session.destroy();
+        res.status(401);
         res.redirect('/');
     });
     app.get('*', function(req, res){
