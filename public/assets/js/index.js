@@ -15,6 +15,8 @@ function slide(left) {
 	}
 	else{
 		slideRight(move);
+		console.log('hola');
+
 	}
 }
 function slideLeft(size, itemSize, preMargin) {

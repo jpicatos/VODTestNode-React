@@ -1,6 +1,7 @@
 var express = require('express');
 var https = require('https');
 var session = require('express-session');
+var morgan = require('morgan');
 
 
 var cacheProvider = require('./cacheProvider');
@@ -13,14 +14,13 @@ var app = express();
 app.set('port', Number(process.env.PORT || 3000));
 
 
-//set view engine
-app.set('view engine', 'ejs');
-
 
 //set static files folder
 app.use(express.static('./public'));
 
 /** MIDDLEWARE **/
+
+app.use(morgan('dev'));
 
 //Session cookies conf
 app.use(session({
@@ -40,7 +40,6 @@ cacheProvider.start(function(err){
 
 //fire controller
 controller(app);
-
 
 //listen to port
 app.listen(process.env.PORT || 3000);
