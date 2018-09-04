@@ -35,6 +35,7 @@ class Carrousel extends Component{
                         <p id="video-description">{this.state.results.description}</p>
                     </div>
                 </div>
+                
             </div>
         )
     }

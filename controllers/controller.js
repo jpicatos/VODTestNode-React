@@ -51,34 +51,34 @@ module.exports = function(app){
                 HistoryModel.find({itemId: req.params.id, userId: req.session.user}).remove(function(err, data){
                     if(err) throw err;
                 });
-                HistoryModel({jsonVideo}).save(function(err){
+                HistoryModel(jsonVideo).save(function(err){
                     if(err) throw err;
                     console.log('item saved');
                 });
             }
         res.json(jsonVideo);            
     });
-    app.get('/history', function(req, res){
+    app.get('/api/history', function(req, res){
         if(req.session.authenticated){
             HistoryModel.find({userId: req.session.user}, function(err, data){
                 if(err) throw err;
-                res.render('history', {items: data, fetchData: require('../public/assets/js/fetchMetadata'), session: req.session});
+                res.json(data);
             });
         }
         else{
-            res.render('historyNoAccess',{session: req.session});
+           res.json({error:'nocontent'});
         }
     });
-    app.delete('/history', function(req, res){
+    app.delete('/api/history', function(req, res){
         HistoryModel.find({}).remove(function(err, data){
             if(err) throw err;
             res.json({success: true});
         });
     });
-    app.delete('/history/:id', function(req, res){
+    app.delete('/api/history/:id', function(req, res){
         HistoryModel.find({itemId: req.params.id, userId: req.session.user}).remove(function(err, data){
             if(err) throw err;
-            res.json({success: true});
+            res.json({data: data});
         });
     });
     app.post('/history', urlencodedParse, function(req, res){
@@ -91,25 +91,20 @@ module.exports = function(app){
             res.render('historyLimited', {items: data, number: numberItems, fetchData: require('../public/assets/js/fetchMetadata')});
         });
     });
-    app.get('/login', function(req, res){
-        res.render('login', {session: req.session});
-    });
-    app.post('/login',urlencodedParse, auth, function(req, res){
+    app.post('/api/login', urlencodedParse, auth, function(req, res){
         console.log(req.session)
         req.session.authenticated = true;
         req.session.user = req.username;
         res.redirect('/');
     });
-    app.get('/register', function(req, res){
-        res.render('register', {session: req.session});
-    });
-    app.post('/register', urlencodedParse, function(req, res){
+    app.post('/api/register', urlencodedParse, function(req, res){
+        console.log(req.body);
         if (req.body.pass1 === req.body.pass2) {
-            UserModel.findOne({user: req.body.user}, function(err, data){
+            UserModel.findOne({user: req.body.name}, function(err, data){
                 if(err) throw err;
                 if(!data){
                     UserModel({
-                        user: req.body.user,
+                        user: req.body.name,
                         password: req.body.pass1,
                     }).save(function(err){
                         if(err) throw err;
@@ -135,7 +130,7 @@ module.exports = function(app){
         res.status(401);
         res.redirect('/');
     });
-    /*app.get('*', function(req, res){
-        res.render('404');
-    });*/
+    app.get('/api/session', function(req, res){
+        res.json(req.session);
+    });
 }

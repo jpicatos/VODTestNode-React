@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+
+import Item from './Item';
 
 class Carrousel extends Component{
 
@@ -7,6 +8,7 @@ class Carrousel extends Component{
         super();
         this.state = {
             results: [],
+            errored: false
         };
     }
     componentDidMount(){
@@ -17,24 +19,25 @@ class Carrousel extends Component{
                 this.setState({results: data.entries});
             });
     }
+    onItemClick(event) {
+        console.log(event.target.id);
+        if (event.target.id === 'right') {
+            slide(0);
+        }
+        else{
+            slide(1);
+        } 
+    }
     render(){
         return (
             <div className="total-carrousel">
-                <button id="right" onClick={slide(0)} className="focusable"> {'<'} </button>
+                <button id="right" onClick={this.onItemClick} className="focusable"> {'<'} </button>
                 <div className="carrousel">
                     <ul className="items">
                         { this.state.results.map(items =>{
                             return(
                                 <li className="item focusable" key={items.id}>
-                                    <Link to={"/" + items.id}>
-                                        <div>
-                                            <div className="thumbnail">
-                                                <img src={items.images[0].url}></img>
-                                            </div>
-                                            <h2>{fetchTitle(items.title)}</h2>
-                                            <h3>{items.categories[0].title} | {fetchType(items.type)} | {fetchLanguaje(items.metadata[0].value)}</h3>
-                                        </div>
-                                    </Link>
+                                    <Item item={items}/>
                                 </li>
                             );
                         })
@@ -42,7 +45,8 @@ class Carrousel extends Component{
                         
                     </ul>
                 </div>
-                <button id="left" onClick={slide(1)} className="focusable"> > </button>
+                <button id="left" onClick={this.onItemClick} className="focusable"> > </button>
+                
             </div>
         )
     }

@@ -15,8 +15,6 @@ function slide(left) {
 	}
 	else{
 		slideRight(move);
-		console.log('hola');
-
 	}
 }
 function slideLeft(size, itemSize, preMargin) {
@@ -53,72 +51,75 @@ function slideRight(size) {
 	}
 }
 $(document).keydown(function(e){
-	switch (e.which) {
-      case 39:
-        console.log('right');
-        console.log($('#home').is('span.focused.focusable'));
-        if ($('#home').is('span.focused.focusable')) {
-        	$('.focused').removeClass('focused');
-        	$('#history').addClass('focused');
-		}
-		else if ($('#history').is('span.focused.focusable')) {
-        	$('.focused').removeClass('focused');
-        	$('#log').addClass('focused');
-        }
-        if ($('.item').hasClass('focused')) {
+	var pathname = window.location.pathname;
+	if (pathname === '/') {
+		switch (e.which) {
+		case 39:
+			console.log('right');
+			console.log($('#home').is('span.focused.focusable'));
+			if ($('#home').is('span.focused.focusable')) {
+				$('.focused').removeClass('focused');
+				$('#history').addClass('focused');
+			}
+			else if ($('#history').is('span.focused.focusable')) {
+				$('.focused').removeClass('focused');
+				$('#log').addClass('focused');
+			}
+			if ($('.item').hasClass('focused')) {
 
-        	if ($('li.item.focused').next().is('li.item.focusable')) {
-        		$('.focused').next().addClass('focused');
-        		$('.focused').prev().removeClass('focused');
-        	}
-        	else{
-        		$('.focused').removeClass('focused');
-        		$('.item').first().addClass('focused');
-        	}
-        }
-        break;
-      case 37:
-        console.log('left');
-        if ($('#history').is('span.focused.focusable')) {
-        	$('.focused').removeClass('focused');
-        	$('#home').addClass('focused');
+				if ($('li.item.focused').next().is('li.item.focusable')) {
+					$('.focused').next().addClass('focused');
+					$('.focused').prev().removeClass('focused');
+				}
+				else{
+					$('.focused').removeClass('focused');
+					$('.item').first().addClass('focused');
+				}
+			}
+			break;
+		case 37:
+			console.log('left');
+			if ($('#history').is('span.focused.focusable')) {
+				$('.focused').removeClass('focused');
+				$('#home').addClass('focused');
+			}
+			else if ($('#log').is('span.focused.focusable')) {
+				$('.focused').removeClass('focused');
+				$('#history').addClass('focused');
+				$('.focused a').focus();
+			}
+			console.log($('.focused').prev().is('li.item.focusable'));
+			if ($('.item').hasClass('focused')) {
+				if ($('li.item.focused').prev().is('li.item.focusable')) {
+					$('.focused').prev().addClass('focused');
+					$('.focused').next().removeClass('focused');
+				}
+				else{
+					$('.focused').removeClass('focused');
+					$('.item').last().addClass('focused');
+				}
+			}
+			break;
+		case 40:
+			console.log('down');
+			if ($('.menu span').hasClass('focused')) {
+				$('.focused').removeClass('focused');
+				$('.item').first().addClass('focused');
+			}
+			
+			break;
+		case 38:
+			console.log('up');
+			if ($('.item').hasClass('focused')) {
+				$('.focused').removeClass('focused');
+				$('#home').addClass('focused');
+			}
+			break;
+		case 27:
+				console.log('esc');
+				window.location.replace("/");
+			break;
 		}
-		else if ($('#log').is('span.focused.focusable')) {
-        	$('.focused').removeClass('focused');
-			$('#history').addClass('focused');
-			$('.focused a').focus();
-        }
-        console.log($('.focused').prev().is('li.item.focusable'));
-        if ($('.item').hasClass('focused')) {
-        	if ($('li.item.focused').prev().is('li.item.focusable')) {
-        		$('.focused').prev().addClass('focused');
-        		$('.focused').next().removeClass('focused');
-        	}
-        	else{
-        		$('.focused').removeClass('focused');
-        		$('.item').last().addClass('focused');
-        	}
-        }
-        break;
-      case 40:
-        console.log('down');
-        if ($('.menu span').hasClass('focused')) {
-			$('.focused').removeClass('focused');
-        	$('.item').first().addClass('focused');
-		}
-        
-        break;
-      case 38:
-        console.log('up');
-        if ($('.item').hasClass('focused')) {
-    		$('.focused').removeClass('focused');
-    		$('#home').addClass('focused');
-        }
-		break;
-	  case 27:
-			console.log('esc');
-			window.location.replace("/VODAccedo");
-		break;
+		$('.focused a').focus();
 	}
-    $('.focused a').focus();
 });
