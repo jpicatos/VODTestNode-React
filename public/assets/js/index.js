@@ -1,7 +1,7 @@
 
-$(document).ready(function(){
+/*$(document).ready(function(){
 	$('.focused a').focus();
-});
+});*/
 
 function slide(left) {
 	var sizeCarousel = parseFloat($('.carrousel').css('width'));
@@ -50,8 +50,10 @@ function slideRight(size) {
 		$('.total-carrousel #right').show();
 	}
 }
-$(document).keydown(function(e){
+/*$(document).keydown(function(e){
 	var pathname = window.location.pathname;
+	console.log("path: " + pathname);
+
 	if (pathname === '/') {
 		switch (e.which) {
 		case 39:
@@ -122,4 +124,4 @@ $(document).keydown(function(e){
 		}
 		$('.focused a').focus();
 	}
-});
+});*/

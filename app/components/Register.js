@@ -42,14 +42,13 @@ class Register extends Component{
             }
           }).then((response) => {
             if (response.status === 401) {
-              alert('Las contraseñas no coinciden');
+              this.setState({errorMessage: 'Las contraseñas no coinciden'});
             }
             else if(response.status === 400){
-                alert('Ya existe el nombre de usuario');
+                this.setState({errorMessage: 'Ya existe el nombre de usuario'});
             }
             else{
-                this.props.history.push('/')
-                window.location.reload();
+                window.location.replace('/#/login').reload();
             }
             console.log( response.status);
           })
@@ -58,7 +57,7 @@ class Register extends Component{
         return (
             <div id="register">
                 <h1>Register</h1>
-                <p id='error'></p>
+                <p id='error'>{this.state.errorMessage}</p>
                 <form id='registerForm' onSubmit={this.handleSubmit}>
                     <input onChange={this.handleChange} id='user' className="field" type="text" name="name" placeholder='User' required/><br/>
                     <input onChange={this.handleChange} id='pass1' className="field" type="password" name="pass1" placeholder='Password' required/><br/>

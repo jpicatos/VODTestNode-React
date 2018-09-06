@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Item from './Item';
 
 class Carrousel extends Component{

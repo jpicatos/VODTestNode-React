@@ -40,11 +40,10 @@ class Login extends Component{
             }
           }).then((response) => {
             if (response.status === 401) {
-              alert('User/Pass incorrect');
+              this.setState({errorMessage: 'User/Pass incorrect'});
             }
             else{
-                this.props.history.push('/')
-                window.location.reload();
+                window.location.replace('/').reload();
             }
             console.log( response.status);
           })
@@ -54,7 +53,7 @@ class Login extends Component{
             <div id="login">
                 {console.log(this.state)}
                 <h1>Login</h1>
-                <p id='error'>{this.state.error}</p>
+                <p id='error'>{this.state.errorMessage}</p>
                 <form onSubmit={this.handleSubmit} id='loginForm'>
                     <input onChange={this.handleChange} value={this.state.name}  id='user' className="field" type="text" name="name" placeholder='User' required/><br></br>
                     <input value={this.state.pass} onChange={this.handleChange} id='pass' className="field" type="password" name="pass" placeholder='Password' required/><br></br>

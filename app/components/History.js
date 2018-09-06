@@ -7,11 +7,22 @@ class Carrousel extends Component{
     constructor() {
         super();
         this.state = {
+            originalResults: [],
             results: [],
             session: false,
             sessionName: ''
         };
         this.onDeleteSingleClick = this.onDeleteSingleClick.bind(this);
+        this.changeNumberOfElements = this.changeNumberOfElements.bind(this);
+    }
+    turnResults(results){
+        var auxArray = [];
+        var j = 0;
+        for (let i = results.length - 1; i >= 0; i--) {
+            auxArray[j] = results[i];
+            j++;
+        }
+        return auxArray;
     }
     componentDidMount () {
         var link = '/api/history/'
@@ -19,7 +30,8 @@ class Carrousel extends Component{
         fetch(link)
             .then(res => res.json())
             .then((results) => {
-                this.setState({results: results});
+                var auxResults = this.turnResults(results);
+                this.setState({results: auxResults, originalResults: auxResults});
             });
         fetch('/api/session')
             .then(res => res.json())
@@ -49,10 +61,21 @@ class Carrousel extends Component{
         fetch(link)
             .then(res => res.json())
             .then((results) => {
-                console.log(this.state);
-                this.setState({results: results});
+                var auxResults = this.turnResults(results);
+                this.setState({results: auxResults, originalResults: auxResults});
                 
             });
+    }
+    changeNumberOfElements(event){
+        var items = event.target.value;
+        var allItems = this.state.originalResults;
+        if (items < 0 || allItems.length - items <= 0) {
+            this.setState({results: allItems});
+        }
+        else{
+            var auxArray = allItems.slice(0, items);
+            this.setState({results: auxArray});
+        }
     }
     render(){
         if(this.state.session){
@@ -61,6 +84,14 @@ class Carrousel extends Component{
                     <div className='historyHeader'>
                         <h1>History</h1>
                         <div>
+                        <form className='numberForm' onChange={this.changeNumberOfElements} method = "POST">
+                            <select className='focusable' id='numberSelect' name ="number" required >
+                                <option value="-1">All</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                            </select>
+                        </form>
                             <span onClick={this.onDeleteClick} id="deleteHistory" className="focusable"><i className="fa fa-trash" aria-hidden="true"></i><a> Delete history</a></span>
                         </div>
                     </div>
