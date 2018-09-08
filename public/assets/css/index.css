@@ -34,6 +34,7 @@ body{
 .total-carrousel #right{
 	left: 3%;
 	display: none;
+	z-index: 1;
 }
 .total-carrousel #left{
 	right: 3%;

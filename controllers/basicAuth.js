@@ -2,6 +2,7 @@ var UserModel = require('../models/user');
 
 module.exports = function (req, res, next) {
     var user = req.body;
+    console.log(user);
     UserModel.findOne({user: user.name}, function(err, data){
         if(err) throw err;
         if(!data){
